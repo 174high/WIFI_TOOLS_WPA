@@ -1,0 +1,14 @@
+ctrl_interface=/data/misc/wifi/wlan0
+
+#ctrl_interface_group=0
+
+ap_scan=1
+
+network={
+
+ssid="309test" #essid
+
+psk="test1234" #密码
+
+}
+
