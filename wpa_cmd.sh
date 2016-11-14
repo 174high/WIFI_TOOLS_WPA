@@ -2,6 +2,7 @@
 1.wpa_supplicant -d -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -iwlan0 -B
 
 2.wpa_cli -p /data/misc/wifi/wlan0
+ps:因为wpa_supplicant.conf中的ctrl_interface=/data/misc/wifi/wlan0。
 
 3.连接AP
 add_network (assume returns 2)
