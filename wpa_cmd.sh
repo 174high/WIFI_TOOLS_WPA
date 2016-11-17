@@ -1,3 +1,5 @@
+================================================================================================================================================================
+
 一、WIFI connect测试（STA）
 1.wpa_supplicant -d -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -iwlan0 -B
 
@@ -14,18 +16,46 @@ add_network (assume returns 2)
 
 4.设置IP与网关
 1>动态获取IP
-dhpad wlan0
+dhcpcd wlan0
 2>静态设置IP
 ifconfig wlan0 192.168.100.200
 ifconfig eth0 192.168.120.56 
 ifconfig eth0 192.168.120.56 netmask 255.255.255.0 
 ifconfig eth0 192.168.120.56 netmask 255.255.255.0 broadcast 192.168.120.255
 route add default gw 192.168.0.1
-PS：获取IP的方式取一种测试即可
+PS：
+a>.获取IP的方式取一种测试即可
+b>.常用的wpa_sullicant命令
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+ Full command         Short command                    Description
+  status                 stat            displays the current connection status
+  disconnect             disc            prevents wpa_supplicant from connecting to any access point
+  quit                   q               exits wpa_cli
+  terminate              term            kills wpa_supplicant
+  reconfigure            recon           reloads wpa_supplicant with the configuration file supplied (-c parameter)
+  scan                   scan            scans for available access points (only scans it, doesn‘t display anything)
+  scan_result            scan_r          displays the results of the last scan
+  list_networks          list_n          displays a list of configured networks and their status (active or not, enabled or disabled)
+  select_network         select_n        select a network among those defined to initiate a connection (ie select_network 0)
+  enable_network         enable_n        makes a configured network available for selection (ie enable_network 0)
+  disable_network        disable_n       makes a configured network unavailable for selection (ie disable_network 0)
+  remove_network         remove_n        removes a network and its configuration from the list (ie remove_network 0)
+  add_network            add_n           adds a new network to the list. Its id will be created automatically
+  set_network            set_n           shows a very short list of available options to configure a network when supplied with no parameters.
+                                         See next section for a list of extremely useful parameters to be used with set_network and get_network.
+  get_network            get_n           displays the required parameter for the specified network. See next section for a list of parameters
+  save_config            save_c          saves the configuration
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+================================================================================================================================================================
 
 二、softAP测试（链接：http://blog.sina.com.cn/s/blog_a000da9d01014m5e.html）
 1.config softAP
 hostapd -B /data/misc/wifi/hostapd.conf
+ps：
+a>.hostapd.conf配置文件得自己编写
+b>.调试softAP功能前，需要先将hostapd可执行文件编译出来
+c>.如果STA与AP功能的firmwire不为同一个时，在调试STA前需要重新载入wifi模块，并且指定AP firmwire的路径
 
 2.config ip address
 ifconfig wlan0 192.168.43.1  netmask 255.255.255.0 
@@ -41,6 +71,8 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
  
 5.config dnsmasq
 dnsmasq --no-daemon --no-resolv --no-poll --dhcp-range=192.168.43.100,192.168.43.200,100h
+
+================================================================================================================================================================
 
 三、P2P测试
 iw phy `ls /sys/class/ieee80211/` interface add p2p0 type managed
