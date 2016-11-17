@@ -1,4 +1,4 @@
-一、WIFI connect测试
+一、WIFI connect测试（STA）
 1.wpa_supplicant -d -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -iwlan0 -B
 
 2.wpa_cli -p /data/misc/wifi/wlan0
@@ -7,7 +7,8 @@ ps:因为wpa_supplicant.conf中的ctrl_interface=/data/misc/wifi/wlan0。
 3.连接AP
 add_network (assume returns 2)
 >set_network 2 ssid  ""
->set_network 2 psk  ""
+>set_network 2 psk  ""（AP有设密码）
+>set_network 2 key_mgmt  NONE（AP没有无密码）
 >select_network 2
 >enable_network 2
 
